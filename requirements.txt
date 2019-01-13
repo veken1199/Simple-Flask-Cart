@@ -4,3 +4,4 @@ marshmallow-sqlalchemy
 flask-sessionstore
 flask_sqlalchemy
 flask-apispec
+gunicorn
