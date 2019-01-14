@@ -14,10 +14,11 @@ class ProductSchema(Schema):
 # Schema that represents Product HTTP response
 class ProductResponseSchema(Schema):
     message = fields.String()
-    hasError = fields.Boolean()
+    has_error = fields.Boolean()
     data = fields.Nested(ProductSchema, many=True)
 
 
+# Schema that represents Product HTTP response
 class ProductRequestSchema(Schema):
     min_price = fields.Float(default=0)
     max_price = fields.Float(default=sys.maxsize)

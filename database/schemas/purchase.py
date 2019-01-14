@@ -15,7 +15,7 @@ class PurchaseRequestSchema(Schema):
 
 class PurchaseResponseSchema(Schema):
     message = fields.String()
-    hasError = fields.Boolean()
+    has_error = fields.Boolean()
     data = []
 
 purchase_request_schema = PurchaseRequestSchema()

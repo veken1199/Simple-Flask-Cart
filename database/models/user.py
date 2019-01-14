@@ -2,6 +2,7 @@ from sqlalchemy import Column, Integer, String
 from marshmallow import Schema, fields, pre_load, validate
 from database import db
 
+
 class User(db.Model):
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True)

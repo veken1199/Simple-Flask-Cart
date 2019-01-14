@@ -1,8 +1,8 @@
-from datetime import date
+class CardItem():
+    added_on = ""
+    product_id = ""
+    current_inventory = ""
+    quantity = ""
 
-
-class CartItem():
-    def __init__(self, product_id, quantity):
-        self.product_id = product_id
-        self.quntity = quantity
-        self.added_on = str(date.today())
+    def __init__(self,**kwargs):
+        self.__dict__.update(kwargs)

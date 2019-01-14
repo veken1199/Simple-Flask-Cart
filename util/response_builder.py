@@ -6,16 +6,18 @@ from flask import jsonify, json
 class ApiResponse:
     data = []
     message = "Successful request"
-    hasError = False
+    has_error = False
+    extra = {}
 
-    def __init__(self, data=data, message=message, has_error=hasError):
+    def __init__(self, data=data, message=message, has_error=has_error, **kwargs):
         self.data = data
         self.message = message
-        self.hasError = has_error
+        self.has_error = has_error
+        self.__dict__.update(kwargs)
 
     def respond(self):
         status_code = 200
-        if self.hasError:
+        if self.has_error:
             status_code = 500
         return self.__dict__, status_code
 

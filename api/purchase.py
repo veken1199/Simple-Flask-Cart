@@ -1,5 +1,4 @@
 from flask import Blueprint, request
-from database.schemas.product import *
 from database.models.product import *
 from database.schemas.purchase import *
 
@@ -14,8 +13,8 @@ purchase_route = Blueprint(purchase_blueprint_name, __name__, url_prefix='/purch
 @purchase_route.route("", methods=['POST'])
 @use_kwargs(PurchaseRequestSchema)
 @marshal_with(PurchaseResponseSchema)
-@doc(tags=['Purchase'], description=''' Endpoint to submit the purchase request
-You need to POST valid product_id and a valid quantity.
+@doc(tags=['Purchase'], description=''' Endpoint purchase a product.
+You need to POST valid 'product_id' and a valid 'quantity'.
 The purchase request will only be completed in case there was at least
 the exact quantity of the product to be purchased in our inventory''')
 def purchase(**kwargs):

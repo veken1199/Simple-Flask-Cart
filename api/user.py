@@ -1,14 +1,16 @@
 from flask import Blueprint, jsonify, session
 from database.models.user import users_schema, User
+from database.seed import *
+from util.response_builder import ApiResponse
+
 
 user_route = Blueprint('user', __name__, url_prefix='/user')
 
-
 @user_route.route("")
-def get_users():
-    users = User.query.all()
-    if 'name' in session:
-        print(session['name'])
-    session['name'] = 'veken'
-    return jsonify({'data': users_schema.dump(users).data}), 200
+def reset_data():
+    try:
+        start_seed(db)
+    except:
+        return ApiResponse(message="Something wrong happened!", has_error=True).respond()
+    return ApiResponse().respond()
 
