@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template, Markup
 from flask_sessionstore import Session
 from apispec.ext.marshmallow import MarshmallowPlugin
 from apispec import APISpec
@@ -9,7 +9,6 @@ from api.product import product_route, get_product, get_products, product_bluepr
 from api.purchase import purchase_route, purchase, purchase_blueprint_name
 from api.cart import cart_route, cart, add_to_cart, delete_from_cart,cart_checkout, cart_blueprint_name
 from api.reset import reset_route, reset_data, reset_blueprint_name
-from util.response_builder import ApiResponse
 
 
 def create_app():
@@ -70,13 +69,18 @@ def method_not_valid(e):
     return jsonify({'message': 'The method is not valid for this route.... Try another'}), 405
 
 
-@app.route('/', methods=['POST'])
+@app.route('/sss', methods=['POST'])
 def post_user():
     data = request.get_json(force=True)
     data, errors = user_schema.load(data)
     print(data)
     print (errors)
     return jsonify({})
+
+
+@app.route('/')
+def index():
+  return render_template('index.html')
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000)

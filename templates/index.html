@@ -1,0 +1,190 @@
+<html>
+<head>
+    <title>Cool Shopify Challenge Documentation :)</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.2.1/lux/bootstrap.min.css" rel="stylesheet" integrity="sha384-kW2H6mf/72/MKlmwB//Zcwg0ckiegojPx/fio14/rpoYw2LMhULTn5YhS1QyrQfx" crossorigin="anonymous">
+
+<style>
+    p {
+        color: black;!important;
+    }
+    .topic {
+        text-align: justify;
+        margin: 15px;
+        margin-bottom: 25px;
+    }
+    p a {
+        font-style: italic;
+        text-decoration: underline;
+    }
+    pre {
+        color: darkgreen;
+        margin-bottom: 2px;
+    }
+    comment {
+        color: yellowgreen;
+        font-style: italic;
+        font-family: monospace;
+    }
+
+</style>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="#">Shopify Challenge</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Application Docs <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/swagger-ui">API Docs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="http://www.linkedin.com/in/fekenbaboyan">About Me</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!-- Navbar ends -->
+
+    <!-- About the app tabs -->
+    <div class="topic">
+        <h3>About the app</h3>
+        <p>This web service is built using Python flask. For data persistence, I used SQLAlchemy toolkit that also
+            provides Object Relational Mapper. For persistence layer, SQLAlchemy is configured to use sqlite3 which is
+            hosted locally on the desk. Since we are dealing with APIs that could accept and return different types of data
+        </p>
+
+        <p>I wanted to experiment with data serialization tool which is called <b class="lead text-danger">Marshmallow</b>. I am
+            using those two tools for the first time; however, it is very interesting approach to interact with database and
+            prepare API responses.</p>
+
+        <p>With the help of <b class="lead text-danger">Marshmallow</b> Schemas and <b class="lead text-danger">Swagger</b>
+            I was able to auto generate <a href="/swagger-ui">API docs </a> with little markups. There were some limitation
+            in this approach such as when I wanted to auto document an endpoint that accepts GET 'arguments'.
+            Further more, the app has been containerized and deployed on a remote <b class="lead text-danger">Heroku</b>
+            <a href="https://glacial-depths-26175.herokuapp.com">machine</a>, It should be running now :)</p>
+    </div>
+     <!-- About the app ends -->
+
+    <!-- Features tabs -->
+    <div class="topic">
+        <h3>Features List</h3>
+        <ul>
+            <li>
+                <p>Reset data in the app any time, before running, or even when the app is running </p>
+            </li>
+            <li>
+                <p>App can run on any machine that uses Docker or Docker Toolbox(windows)</p>
+            </li>
+            <li>
+                <p>The app is already live, so you do not need to run</p>
+            </li>
+            <li>
+                <p>On this application go to <a href="/swagger-ui">API Docs</a> to see full list of endpoints</p>
+            </li>
+
+            <h4>Features for the challenge</h4>
+
+            <h5>Products </h5>
+            <ul>
+                <li>
+                    Get a list of all products in the system
+                </li>
+                <li>
+                    Filter product by `min_price` `max_price` `available` `page` `limit`
+                </li>
+                <li>
+                    Get specific product using its id
+                </li>
+                <li>
+                    Products have `visits` fields that increments every time the product has been requested by id
+                </li>
+            </ul>
+
+            <h5>Purchase</h5>
+            <ul>
+                <li>
+                    Purchase any product with any quantity you want
+                </li>
+            </ul>
+
+            <h5>Cart</h5>
+            <ul>
+                <li>
+                    Load all the products in the cart with all requested quantities
+                </li>
+                <li>
+                    Cart will also tell you what is the inventory of each product placed in the cart
+                </li>
+                <li>
+                    Delete a product from the cart
+                </li>
+                <li>
+                    Add or Update a product in the cart
+                </li>
+                <li>
+                    Checkout cart to process all the products; however, it will also return
+                    a cart with the products that you could not purchase because their inventory is
+                    empty. They will be kept in the inventory.
+                </li>
+            </ul>
+            <h5>Reset</h5>
+                <ul>
+                    <li>
+                    Reset the data in the database to its previous state, in case things got wrong :(
+                    </li>
+                </ul>
+            </ul>
+        </ul>
+    </div>
+    <!-- Features end -->
+
+    <!-- Build and run -->
+    <div class="topic">
+        <h3>How to build and run</h3>
+        <p>I have based my work on Python 3.5</p>
+        <ul>
+            <li>
+                <h4>Using Virtual Environment</h4>
+                <pre>pip install virtualenv</pre>
+                <comment> // Linux</comment>
+                <pre>virtualenv venv</pre>
+                <pre>source bin/activate</pre>
+
+                <comment> // windows</comment>
+                <pre>python -m virtualenv venv</pre>
+                <pre>venv\Script\Activate</pre>
+
+                <comment> // installing the required libs </comment>
+                <pre>pip install -r requirements</pre>
+
+                <comment> //setup the database </comment>
+                <pre>python setup.py</pre>
+                <comment> run the app</comment>
+                <pre>python main.py</pre>
+                <comment> // the app should start on http://localhost:5000 </comment>
+            </li>
+
+            <li>
+                <h4>Using docker</h4>
+                <pre>docker build -t dockershopifyapp .</pre>
+                <comment> // run the docker container</comment>
+                <pre>docker run -p 5000:5000 dockershopifyapp</pre>
+                <comment> // the app should start on http://localhost:5000 </comment>
+            </li>
+            <li>
+                <h4>Using DockerToolbox (windows)</h4>
+                <pre>docker-compose up</pre>
+                <comment> // the up should start on http://192.168.99.1:5000 </comment> </comment>
+            </li>
+        </ul>
+    </div>
+    <!-- Build and run ends -->
+</body>
+</html>
