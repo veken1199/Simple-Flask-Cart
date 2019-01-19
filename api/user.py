@@ -6,11 +6,11 @@ from util.response_builder import ApiResponse
 
 user_route = Blueprint('user', __name__, url_prefix='/user')
 
-@user_route.route("")
+@user_route.route('')
 def reset_data():
     try:
         start_seed(db)
     except:
-        return ApiResponse(message="Something wrong happened!", has_error=True).respond()
+        return ApiResponse(message='Something wrong happened!', has_error=True).respond()
     return ApiResponse().respond()
 

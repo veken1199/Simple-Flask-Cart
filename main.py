@@ -4,6 +4,7 @@ from apispec.ext.marshmallow import MarshmallowPlugin
 from apispec import APISpec
 from flask_apispec.extension import FlaskApiSpec
 
+import os
 from database import db
 from api.product import product_route, get_product, get_products, product_blueprint_name
 from api.purchase import purchase_route, purchase, purchase_blueprint_name
@@ -11,18 +12,24 @@ from api.cart import cart_route, cart, add_to_cart, delete_from_cart,cart_checko
 from api.reset import reset_route, reset_data, reset_blueprint_name
 
 
-def create_app():
+def create_app(config='config.BaseConfig'):
     app = Flask(__name__)
-    app.config.from_object('config')
+    app.config.from_object(config)
     app.app_context().push()
 
     session = Session(app)
     session.app.session_interface.db.create_all()
     db.init_app(app)
+
+    app.register_blueprint(product_route)
+    app.register_blueprint(purchase_route)
+    app.register_blueprint(cart_route)
+    app.register_blueprint(reset_route)
+
     return app, db
 
 
-def create_doc(app):
+def create_docs(app):
     app.config.update({
         'APISPEC_SPEC': APISpec(
             title='Shopify Challenge',
@@ -32,26 +39,21 @@ def create_doc(app):
         'APISPEC_SWAGGER_URL': '/docs/',
     })
     docs = FlaskApiSpec(app)
+
+    docs.register(get_product, blueprint=product_blueprint_name)
+    docs.register(get_products, blueprint=product_blueprint_name)
+
+    docs.register(purchase, blueprint=purchase_blueprint_name)
+
+    docs.register(cart, blueprint=cart_blueprint_name)
+    docs.register(add_to_cart, blueprint=cart_blueprint_name)
+    docs.register(delete_from_cart, blueprint=cart_blueprint_name)
+    docs.register(cart_checkout, blueprint=cart_blueprint_name)
+    docs.register(reset_data, blueprint=reset_blueprint_name)
     return docs
 
 app, _ = create_app()
-docs = create_doc(app)
-
-app.register_blueprint(product_route)
-app.register_blueprint(purchase_route)
-app.register_blueprint(cart_route)
-app.register_blueprint(reset_route)
-
-docs.register(get_product, blueprint=product_blueprint_name)
-docs.register(get_products, blueprint=product_blueprint_name)
-
-docs.register(purchase, blueprint=purchase_blueprint_name)
-
-docs.register(cart, blueprint=cart_blueprint_name)
-docs.register(add_to_cart, blueprint=cart_blueprint_name)
-docs.register(delete_from_cart, blueprint=cart_blueprint_name)
-docs.register(cart_checkout, blueprint=cart_blueprint_name)
-docs.register(reset_data, blueprint=reset_blueprint_name)
+docs = create_docs(app)
 
 # Now point your browser to localhost:5000/api/docs/
 

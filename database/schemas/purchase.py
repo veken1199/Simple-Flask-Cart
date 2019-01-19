@@ -1,21 +1,36 @@
 import sys
-from marshmallow import fields, pre_load, validate, ValidationError, Schema
+import constants
+from database.schemas.base_response import BaseResponseSchema
+from marshmallow import fields, validate, post_load, Schema, pre_load
 
 
+# Schema used to represent user purchase requests
+# It is also used to deserialize requests to application object
 class PurchaseRequestSchema(Schema):
-    def validate_quantity(n):
-        if n <= 0:
-            raise ValidationError('Quantity must be greater than 0.')
-        if n > sys.maxsize:
-            raise ValidationError('Quantity is too big')
+    class PurchaseRequest:
+        product_id = 0
+        quantity = 0
 
-    product_id = fields.Integer(required=True)
-    quantity = fields.Integer(validate=validate_quantity, required=True)
+        def __init__(self, **kwargs):
+            self.__dict__.update(kwargs)
+
+    product_id = fields.Integer(strict=True, required=True, validate=validate.Range(min=1, max=constants.MAX_INT))
+    quantity = fields.Integer(strict=True, required=True, validate=validate.Range(min=1, max=constants.MAX_INT))
+
+    @post_load()
+    def create_purchase_request(self, data):
+        # currently there is a bug in @use_kwargs and object deserialization using Schema.load()
+        # See https://github.com/jmcarp/flask-apispec/issues/73
+        # return self.PurchaseRequest(**data)
+        return data
 
 
-class PurchaseResponseSchema(Schema):
-    message = fields.String()
-    has_error = fields.Boolean()
+class DeletePurchaseRequestSchema(Schema):
+    class DeletePurchaseRequest:
+        product_id = 0
+    product_id = fields.Integer(strict=True, required=True, validate=validate.Range(min=1, max=constants.MAX_INT))
+
+
+class PurchaseResponseSchema(BaseResponseSchema):
     data = []
 
-purchase_request_schema = PurchaseRequestSchema()

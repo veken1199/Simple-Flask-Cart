@@ -10,12 +10,12 @@ reset_blueprint_name = 'reset'
 reset_route = Blueprint(reset_blueprint_name, __name__, url_prefix='/reset')
 
 
-@reset_route.route("")
+@reset_route.route('')
 @marshal_with(PurchaseResponseSchema)
 @doc(tags=['Reset'], description=''' Endpoint to reset all tables in the database to its initial state''')
 def reset_data():
     try:
         start_seed(db)
     except:
-        return ApiResponse(message="Something wrong happened!", has_error=True).respond()
+        return ApiResponse(message='Something wrong happened!', has_error=True).respond()
     return ApiResponse().respond()

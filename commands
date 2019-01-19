@@ -1,6 +1,0 @@
-python -m pip install virtualenv
-
-virtualenv venv
-
-# Windows
-venv\Scripts\activate

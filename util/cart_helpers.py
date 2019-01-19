@@ -9,10 +9,6 @@ def get_cart(session):
     return session['cart']
 
 
-def update_cart_session(session, cart):
-    session['cart'] = cart
-
-
 ''' Helper function to calculate the total of products in the cart.
  It returns the total and the currency. The currency are not taken into
  consideration during the calculations '''
@@ -50,6 +46,8 @@ def update_cart_inventory_counts(cart, model):
 
 
 def generate_cart_response(cart, model):
+    if not cart:
+        return dict(cart=cart, cart_total=0, cart_total_currency='')
     cart_total, currency = calculate_cart_total(cart, model)
     cart_with_inventory = update_cart_inventory_counts(cart, model)
     data = dict(cart=cart_with_inventory, cart_total=cart_total, cart_total_currency=currency)

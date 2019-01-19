@@ -1,4 +1,4 @@
-import sys
+from database.schemas.base_response import BaseResponseSchema
 from datetime import date
 from marshmallow import Schema, fields, pre_load, validate
 
@@ -6,7 +6,7 @@ from marshmallow import Schema, fields, pre_load, validate
 class CartItemSchema(Schema):
     product_id = fields.Integer(required=True)
     quantity = fields.Integer(required=True)
-    current_inventory =fields.Integer(required=False)
+    current_inventory = fields.Integer(required=False)
     added_on = fields.Date(default=date.today())
 
 
@@ -17,13 +17,9 @@ class CartInfoSchema(Schema):
 
 
 # Schema that represents Cart HTTP response
-class CartResponseSchema(Schema):
-    message = fields.String()
-    has_error = fields.Boolean()
+class CartResponseSchema(BaseResponseSchema):
     data = fields.Nested(CartInfoSchema)
 
-cart_Item_Schema = CartItemSchema()
-cart_response_Schema = CartResponseSchema()
 
 
 
