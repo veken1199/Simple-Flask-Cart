@@ -65,10 +65,10 @@
             prepare API responses.</p>
 
         <p>With the help of <b class="lead text-danger">Marshmallow</b> Schemas and <b class="lead text-danger">Swagger</b>
-            I was able to auto generate <a href="/swagger-ui">API docs </a> with little markups. There were some limitation
+            I was able to auto generate <a href="/swagger-ui">API docs </a> with little markups. There were some limitations
             in this approach such as when I wanted to auto document an endpoint that accepts GET 'arguments'.
             Further more, the app has been containerized and deployed on a remote <b class="lead text-danger">Heroku</b>
-            <a href="https://glacial-depths-26175.herokuapp.com">machine</a>, It should be running now :)</p>
+            <a href="https://challenge-2019.herokuapp.com/">machine</a>, It should be running now :)</p>
     </div>
      <!-- About the app ends -->
 
@@ -110,7 +110,7 @@
             <h5>Purchase</h5>
             <ul>
                 <li>
-                    Purchase any product with any quantity you want
+                    Purchase any product with any quantity you want: simple POST - for now
                 </li>
             </ul>
 
@@ -181,10 +181,21 @@
             <li>
                 <h4>Using DockerToolbox (windows)</h4>
                 <pre>docker-compose up</pre>
-                <comment> // the up should start on http://192.168.99.1:5000 </comment> </comment>
+                <comment> // the up should start on http://192.168.99.100:5000 </comment> </comment>
             </li>
         </ul>
     </div>
     <!-- Build and run ends -->
+
+    <!-- Run the tests -->
+    <div class="topic">
+        <h3>How to run the tests</h3>
+            <comment> // install requirements</comment>
+            <pre>pip install -r requirements</pre>
+            <comment> // run the tests using nosetests</comment>
+            <pre>nosetests</pre>
+    </div>
+    <!-- Run the tests end here -->
+
 </body>
 </html>

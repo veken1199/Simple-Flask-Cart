@@ -1,5 +1,4 @@
 from .product import *
-from .user import *
 
 
 def start_seed(db):
@@ -14,5 +13,4 @@ def start_seed(db):
 
     # Starting seed
     print("Seeding table with data started...")
-    seed_users()
     product.seed_products()
