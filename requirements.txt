@@ -7,3 +7,4 @@ flask-apispec
 gunicorn
 flask_testing
 nose
+SQLite3

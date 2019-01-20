@@ -71,15 +71,6 @@ def method_not_valid(e):
     return jsonify({'message': 'The method is not valid for this route.... Try another'}), 405
 
 
-@app.route('/sss', methods=['POST'])
-def post_user():
-    data = request.get_json(force=True)
-    data, errors = user_schema.load(data)
-    print(data)
-    print (errors)
-    return jsonify({})
-
-
 @app.route('/')
 def index():
   return render_template('index.html')
