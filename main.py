@@ -55,16 +55,17 @@ def create_docs(app):
 app, _ = create_app()
 docs = create_docs(app)
 
-# Now point your browser to localhost:5000/api/docs/
 
 @app.errorhandler(404)
 def page_not_found(e):
     return jsonify({'message':'These route is not valid...Try another'}), 404
 
+
 @app.errorhandler(500)
 def internal_error(e):
     return jsonify({'message': 'Something wrong happened! if this keeps happening, please considering '
                                'resetting using {}reset route'.format(request.url_root)}), 500
+
 
 @app.errorhandler(405)
 def method_not_valid(e):
@@ -73,7 +74,8 @@ def method_not_valid(e):
 
 @app.route('/')
 def index():
-  return render_template('index.html')
+    return render_template('index.html')
+
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000)

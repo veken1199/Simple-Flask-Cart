@@ -1,5 +1,5 @@
 class BaseConfig(object):
-    DEBUG = False
+    DEBUG = True
     TESTING = False
 
     # SQLAlchemy setup
@@ -14,7 +14,7 @@ class BaseConfig(object):
 
 class DevelopmentConfig(BaseConfig):
     DEBUG = True
-    TESTING = True
+    TESTING = False
 
 
 class TestingConfig(BaseConfig):

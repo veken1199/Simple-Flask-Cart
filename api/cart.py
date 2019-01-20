@@ -3,10 +3,9 @@ from flask_apispec.annotations import doc
 from database.models.product import *
 from database.schemas.purchase import *
 from database.schemas.cart import *
-from util.product_helper import product_id_validator
 
 from util.response_builder import ApiResponse
-from util.cart_helpers import calculate_cart_total, generate_cart_response, update_cart_inventory_counts, get_cart, CardItem
+from util.cart_helpers import generate_cart_response, update_cart_inventory_counts, get_cart, CardItem
 from flask_apispec import use_kwargs, marshal_with
 
 
@@ -22,7 +21,7 @@ using SQLAlchemy with sqlite3 engine. The default expiry is 31 days, the session
 The content of the session is a dictionary of purchase requests that would be eventually completed once
 the user checks out: Due to limitations with swagger and marshal. The type of the cart is not shown:
 cart: {
-    'key' {
+    \t'key' {
         added_on : Date
         current_inventory : int
         quantity: int // quantity requested to purchase
