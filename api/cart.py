@@ -17,18 +17,18 @@ cart_route = Blueprint(cart_blueprint_name, __name__, url_prefix='/cart')
 @marshal_with(CartResponseSchema)
 @doc(tags=['Cart'], description='''Endpoint to fetch the current cart content.
 The cart is session based and valid until the session's expiry. The session is persistent
-using SQLAlchemy with sqlite3 engine. The default expiry is 31 days, the session will be deleted then.
+using SQLAlchemy with sqlite3 engine. By default, the session will expire in 31 days.
 The content of the session is a dictionary of purchase requests that would be eventually completed once
 the user checks out: Due to limitations with swagger and marshal. The type of the cart is not shown:
 cart: {
-    \t'key' {
+    'key' {
         added_on : Date
         current_inventory : int
         quantity: int // quantity requested to purchase
         product_id: int
     }
 ''')
-def cart(**kwargs):
+def get_complete_cart(**kwargs):
     cart = get_cart(session)
 
     # Calculate the total of the cart, currency, and inventory counts
@@ -39,7 +39,7 @@ def cart(**kwargs):
 @cart_route.route('', methods=['POST'])
 @marshal_with(CartResponseSchema)
 @use_kwargs(PurchaseRequestSchema)
-@doc(tags=['Cart'], description='''Endpoint to add or update if already exists a product
+@doc(tags=['Cart'], description='''Endpoint to add or update (if already exists) a product
 in the cart. This endpoint does the same validation as purchase endpoint in order to
 avoid adding invalid purchase requests in the cart, such as inventory count and quantity requested
 Due to limitations with swagger and marshal. The type of the cart is not shown:
@@ -62,12 +62,12 @@ def add_to_cart(**kwargs):
     if not product:
         return ApiResponse(message='No such product exists', has_error=False).respond()
 
-    # Check if there is enough quantity
+    # Check if there is enough quantity in the inventory
     if product.inventory_count < purchase_request.quantity:
         return ApiResponse(message='There not enough for the requested quantity, current inventory: {}'.format(
             product.inventory_count), has_error=False).respond()
 
-    # If we get here means the request purchase request is valid, let's place it in the care
+    # If we get here means the purchase request is valid, let's place it in the care
     cart = get_cart(session)
     product.inventory_count -= purchase_request.quantity
 
@@ -97,8 +97,7 @@ def delete_from_cart(**kwargs):
 
     cart = get_cart(session)
     if not str(product_id) in cart:
-        # Calculate the total of the cart, currency, and inventory counts
-        return ApiResponse(message='No such product in the cart', has_error=True).respond()
+        return ApiResponse(message='No such product in the cart', has_error=False).respond()
 
     # Delete the product from the cart
     del cart[str(product_id)]

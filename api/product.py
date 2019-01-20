@@ -15,7 +15,7 @@ product_route = Blueprint(product_blueprint_name, __name__, url_prefix='/product
 
 @product_route.route('/all')
 @marshal_with(ProductResponseSchema)
-@doc(tags=['Product'], description='''Returns a list of products based on parameters passed in the request:
+@doc(tags=['Product'], description='''Returns a list of products based on args passed in the request:
 product/all?available=<bool>&min_price=<number>&max_price<number>&limit<int>&page<int>
 the default values for the arguments above are:
     available = false
@@ -30,7 +30,6 @@ def get_products():
     # It also sets the default values for missing args in the request
     product_request, err = ProductRequestSchema().load(request.args.to_dict())
     if err:
-        print(err)
         return ApiResponse(message=err, has_error=True).respond()
 
     # Assigning query function reference so that we can use it with different filters
@@ -58,7 +57,7 @@ def get_product(product_id):
     if not product:
         return ApiResponse(message='Product not found', has_error=False)
 
-    # Additional Feature: After every time we visit a product, it `visits`
+    # Additional Feature: After every time we visit a product, its `visits`
     # count increments. A way of showing which product is the most popular
     product.increment_visit()
     db.session.add(product)

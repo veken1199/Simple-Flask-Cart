@@ -55,16 +55,17 @@ class ProductApiTest(BaseTestCase):
         self.assertEqual(False, response.json['has_error'])
 
     def test_get_all_products_with_min_max_price_filter(self):
-        response = self.client.get('/product/all?available=true&limit=1&min_price=2000&max_price=3000')
+        response = self.client.get('/product/all?available=true&limit=2&min_price=2000&max_price=3000')
 
-        actual_products = Product.query.filter(Product.price >= 2000)\
+        expected_products = Product.query.filter(Product.price >= 2000)\
             .filter(Product.price <= 3000)\
+            .filter(Product.inventory_count > 0)\
             .all()
 
-        actual_products = ProductSchema(many=True).dump(actual_products).data
+        expected_products = ProductSchema(many=True).dump(expected_products).data
 
         self.assert_status(response, 200)
-        self.assertEqual(actual_products, response.json['data'])
+        self.assertEqual(expected_products, response.json['data'])
         self.assertEqual("Successful request", response.json['message'])
         self.assertEqual(False, response.json['has_error'])
 
@@ -91,7 +92,6 @@ class ProductApiTest(BaseTestCase):
 
         response = self.client.get('/product/1')
         initial_visits_count = response.json['data'][0]['visits']
-        print (response.json)
 
         # Lets visit this products 3 times + 1 visit from initial request
         self.client.get('/product/1')
@@ -100,5 +100,4 @@ class ProductApiTest(BaseTestCase):
 
         response = self.client.get('/product/1')
         current_visits_count = response.json['data'][0]['visits']
-        print(response.json)
         self.assertEqual(initial_visits_count + num_visits, current_visits_count)

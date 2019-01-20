@@ -8,7 +8,6 @@ def product_id_validator(key):
     def validate_key(route_func):
         def wrap(*args, **kwargs):
             id = kwargs.get(key)
-            print(id)
             if id > constants.MAX_INT or id < 0:
                 return ApiResponse(message="Invalid product id", has_error=True)
             return route_func(*args, **kwargs)

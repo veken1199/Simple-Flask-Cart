@@ -1,4 +1,5 @@
-from flask import Flask, jsonify, request, render_template, Markup
+from flask import Flask, jsonify, request, render_template, Markup, send_from_directory
+from werkzeug.utils import secure_filename
 from flask_sessionstore import Session
 from apispec.ext.marshmallow import MarshmallowPlugin
 from apispec import APISpec
@@ -8,7 +9,7 @@ import os
 from database import db
 from api.product import product_route, get_product, get_products, product_blueprint_name
 from api.purchase import purchase_route, purchase, purchase_blueprint_name
-from api.cart import cart_route, cart, add_to_cart, delete_from_cart,cart_checkout, cart_blueprint_name
+from api.cart import cart_route, get_complete_cart, add_to_cart, delete_from_cart,cart_checkout, cart_blueprint_name
 from api.reset import reset_route, reset_data, reset_blueprint_name
 
 
@@ -45,7 +46,7 @@ def create_docs(app):
 
     docs.register(purchase, blueprint=purchase_blueprint_name)
 
-    docs.register(cart, blueprint=cart_blueprint_name)
+    docs.register(get_complete_cart, blueprint=cart_blueprint_name)
     docs.register(add_to_cart, blueprint=cart_blueprint_name)
     docs.register(delete_from_cart, blueprint=cart_blueprint_name)
     docs.register(cart_checkout, blueprint=cart_blueprint_name)
@@ -70,6 +71,13 @@ def internal_error(e):
 @app.errorhandler(405)
 def method_not_valid(e):
     return jsonify({'message': 'The method is not valid for this route.... Try another'}), 405
+
+
+@app.route('/<path:filename>')
+def custom_static(filename):
+    # Protection against user input attacks to access different directories in our sys
+    if secure_filename(filename):
+        return send_from_directory(app.config['CUSTOM_STATIC_PATH'], filename)
 
 
 @app.route('/')

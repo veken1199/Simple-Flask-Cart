@@ -18,7 +18,7 @@ class ProductResponseSchema(BaseResponseSchema):
     data = fields.Nested(ProductSchema, many=True)
 
 
-# Schema that represents Product HTTP response.
+# Schema that represents Product HTTP Request.
 # The inner class is used to deserialize requests into application level object
 class ProductRequestSchema(Schema):
     class ProductRequest:

@@ -1,6 +1,6 @@
 from database.schemas.base_response import BaseResponseSchema
 from datetime import date
-from marshmallow import Schema, fields, pre_load, validate
+from marshmallow import Schema, fields
 
 
 class CartItemSchema(Schema):

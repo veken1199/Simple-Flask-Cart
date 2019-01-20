@@ -2,6 +2,9 @@ class BaseConfig(object):
     DEBUG = True
     TESTING = False
 
+    # Static files path
+    CUSTOM_STATIC_PATH = 'static'
+
     # SQLAlchemy setup
     SQLALCHEMY_DATABASE_URI = 'sqlite:///app.db'
     SQLALCHEMY_TRACK_MODIFICATIONS = False

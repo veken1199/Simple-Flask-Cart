@@ -25,6 +25,12 @@
         font-style: italic;
         font-family: monospace;
     }
+    .center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 50%;
+    }
 
 </style>
 <body>
@@ -57,18 +63,25 @@
         <h3>About the app</h3>
         <p>This web service is built using Python flask. For data persistence, I used SQLAlchemy toolkit that also
             provides Object Relational Mapper. For persistence layer, SQLAlchemy is configured to use sqlite3 which is
-            hosted locally on the desk. Since we are dealing with APIs that could accept and return different types of data
-        </p>
-
-        <p>I wanted to experiment with data serialization tool which is called <b class="lead text-danger">Marshmallow</b>. I am
+            hosted locally on the disk. Since we are dealing with APIs that could accept and return different types of data
+            I wanted to experiment with data serialization tool which is called <b class="lead text-danger">Marshmallow</b>. I am
             using those two tools for the first time; however, it is very interesting approach to interact with database and
             prepare API responses.</p>
 
         <p>With the help of <b class="lead text-danger">Marshmallow</b> Schemas and <b class="lead text-danger">Swagger</b>
             I was able to auto generate <a href="/swagger-ui">API docs </a> with little markups. There were some limitations
-            in this approach such as when I wanted to auto document an endpoint that accepts GET 'arguments'.
+            in this approach such as when I wanted to auto document an endpoint that accepts GET 'arguments', It was
+            unable to pick the args allowed to use in those GET requests. Another limitation is that it auto documents all OPTION
+            HTTP requests that are added by default in flask.
             Further more, the app has been containerized and deployed on a remote <b class="lead text-danger">Heroku</b>
             <a href="https://challenge-2019.herokuapp.com/">machine</a>, It should be running now :)</p>
+
+        <p >Overall architecture of the system: </p>
+        <img src="img/overview.jpg" alt="Overall Architecture of the system"class="center"/>
+
+        </br>
+        <p><a href="https://challenge-2019.herokuapp.com/">Try Live!</a></p>
+
     </div>
      <!-- About the app ends -->
 
@@ -77,13 +90,13 @@
         <h3>Features List</h3>
         <ul>
             <li>
-                <p>Reset data in the app any time, before running, or even when the app is running </p>
+                <p>Reset the data in the app any time, before running, or even when the app is running </p>
             </li>
             <li>
                 <p>App can run on any machine that uses Docker or Docker Toolbox(windows)</p>
             </li>
             <li>
-                <p>The app is already live, so you do not need to run</p>
+                <p>The app is already live, so you do not need to run it</p>
             </li>
             <li>
                 <p>On this application go to <a href="/swagger-ui">API Docs</a> to see full list of endpoints</p>
@@ -97,7 +110,7 @@
                     Get a list of all products in the system
                 </li>
                 <li>
-                    Filter product by `min_price` `max_price` `available` `page` `limit`
+                    Filter products by `min_price` `max_price` `available` `page` `limit`
                 </li>
                 <li>
                     Get specific product using its id
@@ -131,7 +144,7 @@
                 <li>
                     Checkout cart to process all the products; however, it will also return
                     a cart with the products that you could not purchase because their inventory is
-                    empty. They will be kept in the inventory.
+                    empty. They will be kept in the cart.
                 </li>
             </ul>
             <h5>Reset</h5>
@@ -157,16 +170,16 @@
                 <pre>virtualenv venv</pre>
                 <pre>source bin/activate</pre>
 
-                <comment> // windows</comment>
+                <comment> // Windows</comment>
                 <pre>python -m virtualenv venv</pre>
                 <pre>venv\Script\Activate</pre>
 
                 <comment> // installing the required libs </comment>
                 <pre>pip install -r requirements</pre>
 
-                <comment> //setup the database </comment>
+                <comment> // Setup the database </comment>
                 <pre>python setup.py</pre>
-                <comment> run the app</comment>
+                <comment> // Run the app</comment>
                 <pre>python main.py</pre>
                 <comment> // the app should start on http://localhost:5000 </comment>
             </li>
@@ -174,14 +187,14 @@
             <li>
                 <h4>Using docker</h4>
                 <pre>docker build -t dockershopifyapp .</pre>
-                <comment> // run the docker container</comment>
+                <comment> // Run the docker container</comment>
                 <pre>docker run -p 5000:5000 dockershopifyapp</pre>
-                <comment> // the app should start on http://localhost:5000 </comment>
+                <comment> // The app should start on http://localhost:5000 </comment>
             </li>
             <li>
                 <h4>Using DockerToolbox (windows)</h4>
                 <pre>docker-compose up</pre>
-                <comment> // the up should start on http://192.168.99.100:5000 </comment> </comment>
+                <comment> // The app should start on http://192.168.99.100:5000 </comment> </comment>
             </li>
         </ul>
     </div>
@@ -190,12 +203,27 @@
     <!-- Run the tests -->
     <div class="topic">
         <h3>How to run the tests</h3>
-            <comment> // install requirements</comment>
-            <pre>pip install -r requirements</pre>
-            <comment> // run the tests using nosetests</comment>
+            <comment> // Install the requirements</comment>
+            <pre>pip install -r requirements.txt</pre>
+            <comment> // Run the tests using nosetests</comment>
             <pre>nosetests</pre>
     </div>
     <!-- Run the tests end here -->
 
+    <div class="topic">
+        <h3> More features to add in the future </h3>
+        <ul>
+            <li>
+                Clients can login and their purchase will be recorded so that we keep a history.
+            </li>
+            <li>
+                Extend current `page` and `limit` args to provide the users with `next` and `prev` hyperlinks
+                in the response when requesting `GET /product/all`
+            </li>
+            <li>
+                Integrate a payment gateway that accepts credit card numbers
+            </li>
+        </ul>
+    </div>
 </body>
 </html>

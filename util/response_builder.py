@@ -1,8 +1,4 @@
-from flask import jsonify, json
-
-PASS_CODE = 200 # OK
-HAS_ERROR_CODE = 422 # Unprocessable Entity
-
+import constants
 
 # This class is a helper class to unify the response of our api. It allows
 # us to maintain consistent api response across the application.
@@ -19,9 +15,9 @@ class ApiResponse:
         self.__dict__.update(kwargs)
 
     def respond(self):
-        status_code = PASS_CODE
+        status_code = constants.PASS_CODE
         if self.has_error:
-            status_code = HAS_ERROR_CODE
+            status_code = constants.HAS_ERROR_CODE
         return self.__dict__, status_code
 
     def get(self):
