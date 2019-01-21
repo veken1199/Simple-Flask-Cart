@@ -58,6 +58,9 @@ docker-compose up
 
 #### Run the tests:
 ```
-// Use nosetests to run the tests
+// Use nosetests to run the tests: in virtualenv
 nosetests
+
+// In windows
+python -m nose
 ```
