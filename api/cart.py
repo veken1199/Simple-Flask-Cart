@@ -41,7 +41,7 @@ def get_complete_cart(**kwargs):
 @use_kwargs(PurchaseRequestSchema)
 @doc(tags=['Cart'], description='''<pre>Endpoint to add or update (if already exists) a product
 in the cart. This endpoint does the same validation as purchase endpoint in order to
-avoid adding invalid purchase requests in the cart, such as inventory count and quantity requested
+avoid adding invalid purchase requests in the cart, such as invalid product id or invalid quantity.
 Due to limitations with swagger and marshal. The type of the cart is not shown:
 cart: {
     'key': {
@@ -113,7 +113,7 @@ def delete_from_cart(**kwargs):
 @doc(tags=['Cart'], description='''<pre>Endpoint to checkout and purchase all the items in the cart. The endpoint
 will still check if the products in the cart are still available in our inventory. It will process the products
 that are available in the inventory, the rest will be kept in the inventory.
-message will be shown indicating which products have be purchased successfully
+message will be shown indicating which products have be purchased successfully.
 The elements that have not been purchased will be returned in the cart field</pre>''')
 def cart_checkout():
     cart = get_cart(session)
