@@ -20,6 +20,9 @@
         color: darkgreen;
         margin-bottom: 2px;
     }
+    #usage pre{
+        color: black;
+    }
     comment {
         color: yellowgreen;
         font-style: italic;
@@ -30,6 +33,12 @@
       margin-left: auto;
       margin-right: auto;
       width: 50%;
+    }
+    .failing {
+        color: red;
+    }
+    .passing {
+        color: green;
     }
 
 </style>
@@ -51,8 +60,12 @@
                     <a class="nav-link" href="/swagger-ui">API Docs</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="#usage">API usage and examples</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="http://www.linkedin.com/in/fekenbaboyan">About Me</a>
                 </li>
+
             </ul>
         </div>
     </nav>
@@ -210,6 +223,14 @@
     </div>
     <!-- Run the tests end here -->
 
+    <div class="topic" id="usage">
+        <h3> Api usage with examples </h3>
+        {% include 'usage/product.html' %}
+        {% include 'usage/purchase.html' %}
+        {% include 'usage/cart.html' %}
+        {% include 'usage/reset.html' %}
+    </div>
+
     <div class="topic">
         <h3> More features to add in the future </h3>
         <ul>
@@ -225,5 +246,7 @@
             </li>
         </ul>
     </div>
+
+
 </body>
 </html>

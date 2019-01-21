@@ -12,7 +12,7 @@ reset_route = Blueprint(reset_blueprint_name, __name__, url_prefix='/reset')
 
 @reset_route.route('')
 @marshal_with(PurchaseResponseSchema)
-@doc(tags=['Reset'], description=''' Endpoint to reset all tables in the database to its initial state''')
+@doc(tags=['Reset'], description='''<pre>Endpoint to reset all tables in the database to its initial state</pre>''')
 def reset_data():
     try:
         start_seed(db)

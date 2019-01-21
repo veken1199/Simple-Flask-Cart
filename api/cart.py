@@ -15,7 +15,7 @@ cart_route = Blueprint(cart_blueprint_name, __name__, url_prefix='/cart')
 
 @cart_route.route('', methods=['GET'])
 @marshal_with(CartResponseSchema)
-@doc(tags=['Cart'], description='''Endpoint to fetch the current cart content.
+@doc(tags=['Cart'], description='''<pre>Endpoint to fetch the current cart content.
 The cart is session based and valid until the session's expiry. The session is persistent
 using SQLAlchemy with sqlite3 engine. By default, the session will expire in 31 days.
 The content of the session is a dictionary of purchase requests that would be eventually completed once
@@ -27,7 +27,7 @@ cart: {
         quantity: int // quantity requested to purchase
         product_id: int
     }
-''')
+</pre>''')
 def get_complete_cart(**kwargs):
     cart = get_cart(session)
 
@@ -39,7 +39,7 @@ def get_complete_cart(**kwargs):
 @cart_route.route('', methods=['POST'])
 @marshal_with(CartResponseSchema)
 @use_kwargs(PurchaseRequestSchema)
-@doc(tags=['Cart'], description='''Endpoint to add or update (if already exists) a product
+@doc(tags=['Cart'], description='''<pre>Endpoint to add or update (if already exists) a product
 in the cart. This endpoint does the same validation as purchase endpoint in order to
 avoid adding invalid purchase requests in the cart, such as inventory count and quantity requested
 Due to limitations with swagger and marshal. The type of the cart is not shown:
@@ -49,7 +49,7 @@ cart: {
         current_inventory : int
         quantity: int // quantity requested to purchase
         product_id: int
-    }''')
+    }</pre>''')
 def add_to_cart(**kwargs):
     _, err = PurchaseRequestSchema().load(request.get_json(force=True))
     if err:
@@ -84,8 +84,8 @@ def add_to_cart(**kwargs):
 @cart_route.route('', methods=['DELETE'])
 @marshal_with(CartResponseSchema)
 @use_kwargs({'product_id': fields.Integer()})
-@doc(tags=['Cart'], description='''Endpoint to delete a product from the cart. The 'product_id' should
-exist in the cart already otherwise a message indicating that product was not found will be returned''')
+@doc(tags=['Cart'], description='''<pre>Endpoint to delete a product from the cart. The 'product_id' should
+exist in the cart already otherwise a message indicating that product was not found will be returned</pre>''')
 def delete_from_cart(**kwargs):
     req, err = DeletePurchaseRequestSchema().load(kwargs)
     if err:
@@ -110,11 +110,11 @@ def delete_from_cart(**kwargs):
 
 @cart_route.route('/checkout', methods=['POST'])
 @marshal_with(CartResponseSchema)
-@doc(tags=['Cart'], description='''Endpoint to checkout and purchase all the items in the cart. The endpoint
+@doc(tags=['Cart'], description='''<pre>Endpoint to checkout and purchase all the items in the cart. The endpoint
 will still check if the products in the cart are still available in our inventory. It will process the products
 that are available in the inventory, the rest will be kept in the inventory.
 message will be shown indicating which products have be purchased successfully
-The elements that have not been purchased will be returned in the cart field''')
+The elements that have not been purchased will be returned in the cart field</pre>''')
 def cart_checkout():
     cart = get_cart(session)
     if len(cart) == 0:

@@ -1,0 +1,65 @@
+<div class="card border-secondary mb-3">
+    <div class="card-header"><h4>Product api</h4></div>
+    <div class="card-body">
+        <p class="passing">REQUEST GET /product/all</p>
+        <pre>Response : 200
+        {
+            "data": [
+                {
+                    "currency_unit": "CAD",
+                    "id": 1,
+                    "inventory_count": 2,
+                    "price": 2322.26,
+                    "title": "Hamer Studio Sunburst 1995",
+                    "visits": 0
+                },
+                ...
+            ],
+            "has_error": false,
+            "message": "Successful request"
+        }
+    </pre>
+        <p class="failing">REQUEST GET https://challenge-2019.herokuapp.com/product/all?available=notbool&max_price=nonumber&min_price=-123&limit=2902834036573465&page=-23423</p>
+        <pre>Response :
+        {
+            "data": [],
+            "has_error": true,
+            "message": {
+                "available": [
+                    "Not a valid boolean."
+                ],
+                "limit": [
+                    "Must be between 1 and 100000."
+                ],
+                "max_price": [
+                    "Not a valid number."
+                ],
+                "min_price": [
+                    "Must be between 0 and 2147483647."
+                ],
+                "page": [
+                    "Must be between 0 and 1000."
+                ]
+            }
+        }
+    </pre>
+        <p class="passing">REQUEST GET /product/1</p>
+        <pre>Response :
+        {
+            "data": [
+                {
+                    "currency_unit": "CAD",
+                    "id": 1,
+                    "inventory_count": 2,
+                    "price": 2322.26,
+                    "title": "Hamer Studio Sunburst 1995",
+                    "visits": 0
+                },
+                ...
+            ],
+            "has_error": false,
+            "message": "Successful request"
+        }
+    </pre>
+    </div>
+</div>

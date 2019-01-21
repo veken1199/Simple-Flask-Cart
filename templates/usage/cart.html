@@ -1,0 +1,80 @@
+<div class="card border-secondary mb-3">
+    <div class="card-header"><h4>Cart api</h4></div>
+    <div class="card-body">
+        <p class="passing">REQUEST POST /cart</p>
+        <p>data:{"product_id":1, "quantity":1}</p>
+        <pre>Response :
+        {
+            "data": {
+                "cart": {
+                    "1": {
+                        "added_on": "2019-01-20",
+                        "current_inventory": 1,
+                        "product_id": 1,
+                        "quantity": 1
+                    }
+                },
+                "cart_total": 2322.26,
+                "cart_total_currency": "CAD"
+            },
+            "has_error": false,
+            "message": "Item has been added to the cart"
+        }
+    </pre>
+        <p class="passing">REQUEST GET /cart</p>
+        <pre>Response :
+        {
+            "data": {
+                "cart": {
+                    "1": {
+                        "added_on": "2019-01-20",
+                        "current_inventory": 1,
+                        "product_id": 1,
+                        "quantity": 1
+                    }
+                },
+                "cart_total": 2322.26,
+                "cart_total_currency": "CAD"
+            },
+            "has_error": false,
+            "message": "Successful operation"
+        }
+    </pre>
+        <p class="passing">REQUEST POST /cart/checkout</p>
+        <pre>Response:
+        {
+            "data": {
+                "cart": {
+                    "2": {
+                        "added_on": "2019-01-20",
+                        "current_inventory": 0,
+                        "product_id": 2,
+                        "quantity": 1
+                    }
+                },
+                "cart_total": 3123.15,
+                "cart_total_currency": "CAD"
+            },
+            "has_error": false,
+            "message": "Successfully purchased the products with the following ids :[1]"
+        }
+
+    </pre>
+        </comment> Notice: We only purchased product with id=1 since product id=2 is out!
+        the cart will keep product id = 2 </comment>
+
+        <p class="passing">REQUEST POST /cart</p>
+        <p>data:{"product_id":2, "quantity":1}</p>
+        <pre>Response :
+         {
+            "data": {
+                "cart": {},
+                "cart_total": 0,
+                "cart_total_currency": ""
+            },
+            "has_error": false,
+            "message": "Successfully deleted from the cart"
+        }
+     </pre>
+    </div>
+</div>

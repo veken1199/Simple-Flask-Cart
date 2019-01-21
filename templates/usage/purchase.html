@@ -1,0 +1,29 @@
+<div class="card border-secondary mb-3">
+    <div class="card-header"><h4>Purchase api</h4></div>
+    <div class="card-body">
+        <p class="passing">REQUEST POST /purchase</p>
+        <p>data:{"product_id":1, "quantity":1}</p>
+        <pre>Response :
+        {
+            "has_error": false,
+            "message": "Purchase has been completed!"
+        }
+    </pre>
+
+        <p class="failing">REQUEST POST /purchase</p>
+        <p>data:{"product_id" : -1,"quantity": 24897230894723842893472391}</p>
+        <pre>Response :
+        {
+            "has_error": true,
+            "message": {
+                "product_id": [
+                    "Must be between 1 and 2147483647."
+                ],
+                "quantity": [
+                    "Must be between 1 and 2147483647."
+                ]
+            }
+        }
+    </pre>
+    </div>
+</div>
