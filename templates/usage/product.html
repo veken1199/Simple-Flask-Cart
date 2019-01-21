@@ -19,8 +19,8 @@
             "message": "Successful request"
         }
     </pre>
-        <p class="failing">REQUEST GET https://challenge-2019.herokuapp.com/product/all?available=notbool&max_price=nonumber&min_price=-123&limit=2902834036573465&page=-23423</p>
-        <pre>Response :
+        <p class="failing">REQ GET https://challenge-2019.herokuapp.com/product/all?available=notbool&max_price=nonumber&min_price=-123&limit=2902834036573465&page=-23423</p>
+        <pre>Response : 422
         {
             "data": [],
             "has_error": true,
@@ -44,7 +44,7 @@
         }
     </pre>
         <p class="passing">REQUEST GET /product/1</p>
-        <pre>Response :
+        <pre>Response : 200
         {
             "data": [
                 {

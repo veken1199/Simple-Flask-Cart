@@ -3,7 +3,7 @@
     <div class="card-body">
         <p class="passing">REQUEST POST /purchase</p>
         <p>data:{"product_id":1, "quantity":1}</p>
-        <pre>Response :
+        <pre>Response : 200
         {
             "has_error": false,
             "message": "Purchase has been completed!"
@@ -12,7 +12,7 @@
 
         <p class="failing">REQUEST POST /purchase</p>
         <p>data:{"product_id" : -1,"quantity": 24897230894723842893472391}</p>
-        <pre>Response :
+        <pre>Response : 422
         {
             "has_error": true,
             "message": {
