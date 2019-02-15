@@ -1,4 +1,4 @@
-# Shopify Challenge - Backend Intern - Winter 2019
+# Simple Flask Cart
 live version: https://challenge-2019.herokuapp.com/
 
 ## About the Application:
@@ -45,9 +45,9 @@ python main.py
 ```
 #### Using docker
 ```
-docker build -t dockershopifyapp .
+docker build -t dockerapp .
 // Run the docker container
-docker run -p 5000:5000 dockershopifyapp
+docker run -p 5000:5000 dockerapp
 // The app should start on http://localhost:5000
 ```
 #### Using DockerToolbox (windows)
